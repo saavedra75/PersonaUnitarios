@@ -1,4 +1,7 @@
 package code;
+
+import static org.junit.Assert.assertTrue;
+
 /**
  * Clase Persona
  * Contiene información de una persona
@@ -154,6 +157,8 @@ public class Persona {
      */
     public void setSexo(char sexo) {
         this.sexo = sexo;
+        //Añado esto para no poder introducir un sexo erróneo
+        this.comprobarSexo();
     }
  
     /**
@@ -228,6 +233,17 @@ public class Persona {
                 + "DNI: " + DNI + "\n"
                 + "Peso: " + peso + " kg\n"
                 + "Altura: " + altura + " metros\n";
+    }
+    
+    public boolean esValidoDNI() {
+    	boolean result = true;
+    	
+    	for (int i = 0; i < this.getDNI().length(); i++) {
+			if ((i < 8 && !Character.isDigit(this.getDNI().charAt(i)) || i == 9 && Character.isUpperCase(this.getDNI().charAt(i)))) {
+	            result = false;
+		}
+    }
+    	return result;
     }
 
 	public String getDNI() {
