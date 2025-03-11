@@ -108,6 +108,7 @@ public class Persona {
             this.sexo = SEXO_DEF;
         }
     }
+    
  
     private String generarDni() {
         final int divisor = 23;
@@ -121,6 +122,10 @@ public class Persona {
  
         //Pasamos el DNI a String
         return Integer.toString(numDNI) + letraDNI;
+    }
+    
+    public char visualizarGeneraLetraDNI(int res) {
+    	return generaLetraDNI(res);
     }
  
     private char generaLetraDNI(int res) {

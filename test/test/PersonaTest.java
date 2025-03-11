@@ -71,8 +71,18 @@ class PersonaTest {
         String dniRegex = "\\d{8}[A-Z]";
 
         assertTrue(persona.getDNI().matches(dniRegex));
+        assertTrue(carlos.getDNI().matches(dniRegex));
+        assertTrue(jose.getDNI().matches(dniRegex));
     }
 	
+	//No es posible comprobar los casos en los que el dni realmente no sea válido puesto que los dni se 
+	//generan automáticamente al crear una persona. El método que genera los DNI ya está testado. Parece no haber margen de error.
+	@Test
+	public void testEsValidoDNI() {
+		assertTrue(jose.esValidoDNI());
+		assertTrue(carlos.esValidoDNI());
+		assertTrue(elias.esValidoDNI());
+	}
 	
 	@Test
 	void testSetSexo() {
@@ -83,6 +93,23 @@ class PersonaTest {
 		jose.setSexo('T');
 		assertEquals(jose.getSexo(), 'H');
 	}
+	
+	//Con este test he averiguado que el campo altura debe estar en metros, no en centímetros.
+    @Test
+    public void testCalcularIMCPesoIdeal() {
+    	jose.setAltura(1.60);
+        assertEquals(Persona.PESO_IDEAL, jose.calcularIMC());
+    }
+    
+    
+    //Aquí tuve que crear un método público para acceder a generaLetraDNI() porque este es inaccesible 
+    //debido a su visibilidad privada.
+    @Test
+    public void testGeneraLetraDNI() {
+    	assertEquals(jose.visualizarGeneraLetraDNI(11), 'B');
+    	assertEquals(jose.visualizarGeneraLetraDNI(22), 'E');
+    	assertEquals(jose.visualizarGeneraLetraDNI(1), 'R');
+    }
 
 	@Test
 	void testSetPeso() {
@@ -94,7 +121,7 @@ class PersonaTest {
 	void testMayorEdad() {
 		carlos.setEdad(1);
 		assertTrue(jose.esMayorDeEdad());
-		assertTrue(carlos.esMayorDeEdad() == false);
+		assertFalse(carlos.esMayorDeEdad());
 
 	}
 	
@@ -123,7 +150,10 @@ class PersonaTest {
 		String resultadoEsperado = "Informacion de la persona:\n"
                 + "Nombre: " + "Jose" + "\n"
                 + "Sexo: " + "hombre" + "\n"
-                + "Edad: " + 20 + " años\n";
+                + "Edad: " + 20 + " años\n"
+                + "DNI: " + jose.getDNI() + "\n"
+                + "Peso: " + 60.00 + " kg\n"
+                + "Altura: " + 160.0 + " metros\n";
 
 		assertTrue(jose.toString().contains(resultadoEsperado));
 		
