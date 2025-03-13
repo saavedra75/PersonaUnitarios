@@ -193,16 +193,19 @@ public class Persona {
      * <li>1: la persona esta por encima de su peso ideal</li></ul>
      */
     public int calcularIMC() {
+    	double pesoActual = 0;
         //Calculamos el peso de la persona
-        double pesoActual = peso / (Math.pow(altura, 2));
-        //Segun el peso, devuelve un codigo
-        if (pesoActual >= 20 && pesoActual <= 25) {
-            return PESO_IDEAL;
-        } else if (pesoActual < 20) {
-            return INFRAPESO;
-        } else {
-            return SOBREPESO;
-        }
+    	if(this.altura!=0) {
+             pesoActual = peso / (Math.pow(altura, 2));
+    	}
+	       //Segun el peso, devuelve un codigo
+	    if (pesoActual >= 20 && pesoActual <= 25) {
+	    	return PESO_IDEAL;
+	    } else if (pesoActual < 20) {
+	            return INFRAPESO;
+	    } else {
+	        return SOBREPESO;
+	    }
     }
  
     /**

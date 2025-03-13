@@ -13,35 +13,10 @@ import code.Persona;
 
 class PersonaTest {
 
-	Persona jose = new Persona("Jose", 20, 'H', 60.00, 160);
-	Persona carlos = new Persona("Carlos", 15 ,'T', 100.00, 190);
-	Persona elias = new Persona();
-	 /**
-     * El peso de la persona esta por debajo del peso ideal
-     */
-    public static final int INFRAPESO = -1;
- 
-    /**
-     * El peso de la persona esta en su peso ideal
-     */
-    public static final int PESO_IDEAL = 0;
- 
-    /**
-     * El peso de la persona esta por encima del peso ideal
-     */
-    public static final int SOBREPESO = 1;
-	
-	@BeforeAll
-	static void setUpBeforeClass() throws Exception {
-		Persona jose = new Persona("Jose", 20, 'H', 68.0, 1.75);
-		Persona carlos = new Persona("Carlos", 18 ,'T', 100.00, 7);
-		Persona elias = new Persona();
-		elias.setPeso(120);
-		jose.setPeso(60);
-		jose.setAltura(1.60);
-		
-	
-	}
+	public static Persona jose = new Persona("Jose", 20, 'H', 60.00, 160);
+	public static Persona carlos = new Persona("Carlos", 15 ,'T', 100.00, 1.90);
+	public static Persona elias = new Persona();
+
 
 	@Test
 	void testPersona() {
@@ -93,15 +68,7 @@ class PersonaTest {
 		jose.setSexo('T');
 		assertEquals(jose.getSexo(), 'H');
 	}
-	
-	//Con este test he averiguado que el campo altura debe estar en metros, no en centímetros.
-    @Test
-    public void testCalcularIMCPesoIdeal() {
-    	jose.setAltura(1.60);
-        assertEquals(Persona.PESO_IDEAL, jose.calcularIMC());
-    }
-    
-    
+
     //Aquí tuve que crear un método público para acceder a generaLetraDNI() porque este es inaccesible 
     //debido a su visibilidad privada.
     @Test
@@ -132,18 +99,25 @@ class PersonaTest {
 		assertTrue(jose.getAltura()==162.2);	
 	}
 	
+	//Con este test he averiguado que el campo altura debe estar en metros, no en centímetros.
+    @Test
+    public void testCalcularIMCPesoIdeal() {
+    	jose.setAltura(1.60);
+        assertEquals(Persona.PESO_IDEAL, jose.calcularIMC());
+    }
+    
+    
     @Test
     public void testCalcularIMC_Infrapeso() {
-        assertEquals(Persona.INFRAPESO, carlos.calcularIMC());
+        assertTrue(elias.calcularIMC() == Persona.INFRAPESO);
+
     }
     
     @Test
     public void testCalcularIMC_Sobrepeso() {
-        assertEquals(Persona.SOBREPESO, elias.calcularIMC());
+    	carlos.setPeso(600);
+        assertEquals(Persona.SOBREPESO, carlos.calcularIMC());
     }
-
-
-	//	Persona jose = new Persona("Jose", 20, 'H', 60.00, 162);
 
 	@Test
 	void testToString() {
